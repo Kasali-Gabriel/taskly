@@ -1,0 +1,109 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String           @id
+  email          String           @unique
+  name           String
+  profilePicture String?
+  teamId         String?
+  taskAssignment TaskAssignment[]
+  attachments    Attachment[]
+  comments       Comment[]
+
+  authoredTasks Task[] @relation("TaskAuthor")
+  assignedTasks Task[] @relation("TaskAssignee")
+  team          Team?  @relation(fields: [teamId], references: [id])
+}
+
+model Team {
+  id                   String        @id
+  name                 String
+  productOwnerUserId   String?
+  projectManagerUserId String?
+  members              User[]
+  projectTeams         ProjectTeam[]
+}
+
+model Project {
+  id           String        @id
+  name         String
+  description  String?
+  startDate    DateTime
+  endDate      DateTime
+  tasks        Task[]
+  projectTeams ProjectTeam[]
+}
+
+model ProjectTeam {
+  id        String @id
+  projectId String
+  teamId    String
+
+  project Project @relation(fields: [projectId], references: [id])
+  team    Team    @relation(fields: [teamId], references: [id])
+}
+
+model Task {
+  id              String           @id
+  title           String
+  description     String?
+  startDate       DateTime?
+  dueDate         DateTime
+  status          String?
+  priority        String?
+  tags            String?
+  points          Int?
+  authorId        String
+  assigneeId      String?
+  projectId       String
+  taskAssignments TaskAssignment[]
+  attachments     Attachment[]
+  comments        Comment[]
+
+  author   User    @relation("TaskAuthor", fields: [authorId], references: [id])
+  assignee User?   @relation("TaskAssignee", fields: [assigneeId], references: [id])
+  project  Project @relation(fields: [projectId], references: [id])
+}
+
+model TaskAssignment {
+  id     String @id
+  taskId String
+  userId String
+
+  task Task @relation(fields: [taskId], references: [id])
+  user User @relation(fields: [userId], references: [id])
+}
+
+model Attachment {
+  id           String  @id
+  taskId       String
+  uploadedById String
+  url          String
+  name         String?
+
+  task       Task @relation(fields: [taskId], references: [id])
+  uploadedBy User @relation(fields: [uploadedById], references: [id])
+}
+
+model Comment {
+  id     String @id
+  text   String
+  taskId String
+  userId String
+
+  task Task @relation(fields: [taskId], references: [id])
+  user User @relation(fields: [userId], references: [id])
+}

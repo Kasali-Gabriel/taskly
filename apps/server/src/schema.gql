@@ -1,0 +1,137 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Attachment {
+  id: String!
+  name: String
+  task: Task!
+  taskId: String!
+  uploadedBy: User!
+  uploadedById: String!
+  url: String!
+}
+
+type Comment {
+  id: String!
+  task: Task!
+  taskId: String!
+  text: String!
+  user: User!
+  userId: String!
+}
+
+input CreateProjectInput {
+  description: String
+  endDate: DateTime!
+  name: String!
+  startDate: DateTime!
+}
+
+input CreateTaskInput {
+  assigneeId: String
+  authorId: String!
+  description: String
+  dueDate: DateTime!
+  points: Float
+  priority: String
+  projectId: String!
+  startDate: DateTime
+  status: String
+  tags: String
+  title: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Mutation {
+  createProject(createProjectInput: CreateProjectInput!): Project!
+  createTask(createTaskInput: CreateTaskInput!): Task!
+  updateTaskStatus(updateTaskStatusInput: UpdateTaskStatusInput!): Task!
+}
+
+type Project {
+  description: String
+  endDate: DateTime
+  id: String!
+  name: String!
+  projectTeams: [ProjectTeam!]!
+  startDate: DateTime
+  tasks: [Task!]!
+}
+
+type ProjectTeam {
+  id: String!
+  project: Project!
+  projectId: String!
+  team: Team!
+  teamId: String!
+}
+
+type Query {
+  getProjects: [Project!]!
+  getTeams: [Team!]!
+  getUsers: [User!]!
+  tasks(projectId: String!): [Task!]!
+  tasksByUser(userId: String!): [Task!]!
+}
+
+type Task {
+  assignee: User
+  assigneeId: String
+  attachments: [Attachment!]!
+  author: User!
+  authorId: String!
+  comments: [Comment!]!
+  description: String
+  dueDate: DateTime
+  id: String!
+  points: Float
+  priority: String
+  project: Project!
+  projectId: String!
+  startDate: DateTime
+  status: String
+  tags: String
+  taskAssignments: [TaskAssignment!]!
+  title: String!
+}
+
+type TaskAssignment {
+  id: String!
+  task: Task!
+  taskId: String!
+  user: User!
+  userId: String!
+}
+
+type Team {
+  id: String!
+  members: [User!]!
+  name: String!
+  productOwnerUserId: String
+  projectManagerUserId: String
+  projectTeams: [ProjectTeam!]!
+}
+
+input UpdateTaskStatusInput {
+  status: String!
+  taskId: String!
+}
+
+type User {
+  assignedTasks: [Task!]!
+  attachments: [Attachment!]!
+  authoredTasks: [Task!]!
+  comments: [Comment!]!
+  email: String!
+  id: String!
+  name: String!
+  profilePicture: String
+  taskAssignment: [TaskAssignment!]!
+  team: Team
+  teamId: String
+}
