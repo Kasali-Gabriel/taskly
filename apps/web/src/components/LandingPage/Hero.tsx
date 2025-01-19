@@ -32,7 +32,7 @@ const Hero = () => {
       </div>
       <div className="h-fit w-full rounded-tr-3xl bg-blue-50 p-2 sm:p-4">
         <Image
-          src="/hero3.jpg"
+          src="/hero3.png"
           alt="hero 3"
           width={400}
           height={400}
@@ -103,7 +103,7 @@ const Hero = () => {
   );
 
   return (
-    <section className="mt-5 flex items-center justify-center ">
+    <section className="mt-5 flex items-center justify-center">
       <div className="flex h-full w-full flex-col-reverse space-y-5 space-y-reverse lg:ml-4 lg:grid lg:grid-cols-2 xl:ml-0 xl:space-x-5 xl:space-y-0">
         <div className="-mt-5 mr-4 flex items-center justify-end sm:-mt-0 sm:pt-7 lg:hidden">
           <PlayStoreButton />

@@ -137,4 +137,24 @@ html {
   height: 0px;
 }
 
+.step-cutout {
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 102%;
+  height: 60%;
+  background-color: #60a5fa;
+  clip-path: polygon(
+    0 0,
+    100% 0%,
+    100% 20%,
+    80% 20%,
+    80% 55%,
+    40% 55%,
+    40% 85%,
+    0 85%
+  );
+}
+
+
 
