@@ -27,6 +27,7 @@ export const features = [
   },
 
   {
+    // TODO change the image to a coorect one showcasing board view, table view amd timeline view
     title: 'Customizable Views',
     subheading: 'Flexible View Options',
     description:

@@ -11,6 +11,7 @@ const Banner = () => {
         </div>
 
         <div className="relative my-5 flex h-auto w-full items-center justify-center">
+          {/* TODO change the shape of the banner, the middle must be longer and the first step shorter */}
           <Image
             src="/bannerBacground.png"
             alt="banner background"

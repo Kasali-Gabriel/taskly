@@ -20,7 +20,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 import { AppStoreButton, PlayStoreButton } from '../Buttons/DownloadApp';
 import { Input } from '../ui/input';
-import footerData from './footerData';
+import footerData from '../../constants/footerData';
 
 interface FooterSectionProps {
   header: string;
