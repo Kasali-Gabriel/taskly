@@ -74,7 +74,7 @@ const Testimonials = () => {
   };
 
   return (
-    <div className="flex w-full flex-col justify-center py-5">
+    <div className="flex w-full flex-col justify-center py-5" id="testimonials">
       <div className="flex w-full flex-wrap items-center justify-between pb-5">
         <div className="flex w-full items-center justify-between px-4 sm:w-[60%] sm:px-0">
           <h2 className="w-fit rounded-3xl border-2 border-stone-500 px-4 py-2">

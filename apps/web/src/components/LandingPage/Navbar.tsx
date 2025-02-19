@@ -27,7 +27,10 @@ const NavLink = ({ href, children }: NavLinkProps) => (
 
 const Navbar = () => {
   return (
-    <div className="flex w-screen max-w-screen-2xl p-2 sm:px-5 sm:py-4 xl:px-20">
+    <div
+      className="flex w-screen max-w-screen-2xl p-2 sm:px-5 sm:py-4 xl:px-20"
+      id="home"
+    >
       <div className="flex w-full items-center justify-between">
         <Image
           src="/logo.png"
@@ -38,9 +41,9 @@ const Navbar = () => {
         />
 
         <div className="-ml-2 hidden space-x-1 md:flex xl:-ml-0 xl:space-x-4">
-          <NavLink href="#home">Home</NavLink>
           <NavLink href="#about">About Us</NavLink>
-          <NavLink href="#features">Our Features</NavLink>
+          <NavLink href="#features">Features</NavLink>
+          <NavLink href="#testimonials">Testimonials</NavLink>
         </div>
 
         <SignUpBtn />

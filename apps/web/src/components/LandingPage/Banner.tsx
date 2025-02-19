@@ -4,37 +4,57 @@ import SignUpBtn from '../Buttons/SignUpBtn';
 
 const Banner = () => {
   return (
-    <div className="mx-16 flex h-[85vh] flex-col items-center justify-center rounded-3xl bg-blue-400 px-8 py-12 text-center text-white md:flex-row md:space-x-8 xl:space-x-20 xl:px-20">
-      <div className="flex h-full w-full flex-col items-start justify-center space-y-6 md:w-1/2">
+    <div className="mx-5 flex h-auto flex-col rounded-3xl bg-blue-400 p-5 text-center text-white sm:flex-row sm:space-x-5 sm:px-5 sm:py-10 xl:mx-16 xl:space-x-10 xl:px-8 xl:py-12">
+      <div className="flex h-full w-full flex-col items-start justify-center md:space-y-10">
         <div className="flex w-fit items-center justify-center rounded-xl bg-gray-300/30 px-4 py-2">
           <Smile size={25} /> <span className="ml-2">New experience</span>
         </div>
 
-        <div className="relative flex h-[80%] w-full items-end justify-center rounded-b-3xl bg-white">
+        <div className="relative my-5 flex h-auto w-full items-center justify-center">
           <Image
-            src="/hero1.png"
-            alt="banner.img"
-            width={800}
+            src="/bannerBacground.png"
+            alt="banner background"
             height={1000}
-            className="absolute z-50 h-[430px] w-[300px] object-contain"
+            width={1000}
+            className="h-auto w-auto object-contain"
           />
-          <div className="step-cutout absolute left-0 top-0 h-[50%] w-full bg-blue-400"></div>
+
+          <Image
+            src="/banner.png"
+            alt="banner image"
+            width={1000}
+            height={650}
+            className="absolute bottom-0 z-50 h-auto w-auto object-contain sm:h-[17rem] md:h-[19.25rem] lg:h-[27.25rem] xl:h-[28.125rem]"
+          />
         </div>
       </div>
 
-      <div className="flex flex-col items-start justify-center space-y-4">
-        <h2 className="text-start text-3xl font-bold md:text-4xl">
-          Ready to conquer your tasks?
+      <div className="relative flex w-full flex-col justify-center space-y-4 md:pt-5 lg:pt-8 xl:pt-0">
+        <h2 className="text-start text-2xl md:text-3xl lg:text-6xl">
+          Ready to dig into an incredible productivity experience?
         </h2>
 
-        <p className="text-start text-lg md:text-xl">
-          Streamline your productivity with our task management platform.
+        <p className="text-start text-sm md:text-base">
+          Elevate your productivity with our innovative task management
+          platform. Experience seamless organization and efficiency, bringing
+          the future of productivity into your hands. Try it for free today and
+          transform the way you work.
         </p>
 
-        <SignUpBtn
-          arrowDirection="up"
-          color="bg-white text-black hover:bg-gray-200"
-        />
+        <div className="flex flex-row-reverse justify-between py-2 lg:flex-row xl:py-0">
+          <SignUpBtn
+            arrowDirection="up"
+            color="bg-white text-black hover:bg-gray-200 w-full sm:w-auto text-lg"
+          />
+
+          <Image
+            src="/banner_design.png"
+            alt="banner design line"
+            width={200}
+            height={200}
+            className="-mt-2 hidden scale-75 lg:block xl:scale-[0.85]"
+          />
+        </div>
       </div>
     </div>
   );

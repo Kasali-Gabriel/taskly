@@ -11,7 +11,7 @@ const Page = () => {
     <div className="flex h-full min-h-screen w-screen flex-col">
       <Navbar />
 
-      <main className="w-full space-y-32 px-2 pb-40 sm:px-5 xl:px-20">
+      <main className="w-full space-y-28 px-2 pb-28 sm:px-5 xl:px-20">
         <Hero />
         <Features />
         <About />
