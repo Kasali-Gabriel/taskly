@@ -1,17 +1,21 @@
 'use client';
 
 import { ArrowDownRight, ArrowUpRight } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { Button } from '../ui/button';
 
-interface SignUpBtnProps {
+interface loginBtnProps {
   color?: string;
   arrowDirection?: 'up' | 'down';
 }
 
-const SignUpBtn = ({ color, arrowDirection = 'down' }: SignUpBtnProps) => {
+const LoginBtn = ({ color, arrowDirection = 'down' }: loginBtnProps) => {
+  const router = useRouter();
+
   return (
     <Button
       className={`flex items-center justify-center rounded-3xl py-2 pl-4 pr-1 ${color}`}
+      onClick={() => router.push('/login')}
     >
       <span className="sm:text-lg">Get Started</span>
 
@@ -26,4 +30,4 @@ const SignUpBtn = ({ color, arrowDirection = 'down' }: SignUpBtnProps) => {
   );
 };
 
-export default SignUpBtn;
+export default LoginBtn;

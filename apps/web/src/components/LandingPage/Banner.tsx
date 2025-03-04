@@ -1,6 +1,6 @@
 import { Smile } from 'lucide-react';
 import Image from 'next/image';
-import SignUpBtn from '../Buttons/SignUpBtn';
+import LoginBtn from '../Buttons/loginBtn';
 
 const Banner = () => {
   return (
@@ -43,7 +43,7 @@ const Banner = () => {
         </p>
 
         <div className="flex flex-row-reverse justify-between py-2 lg:flex-row xl:py-0">
-          <SignUpBtn
+          <LoginBtn
             arrowDirection="up"
             color="bg-white text-black hover:bg-gray-200 w-full sm:w-auto text-lg"
           />

@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import {
   Tooltip,
@@ -17,10 +17,9 @@ import {
 
 import { faXTwitter } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Link from 'next/link';
+import footerData from '../../constants/footerData';
 import { AppStoreButton, PlayStoreButton } from '../Buttons/DownloadApp';
 import { Input } from '../ui/input';
-import footerData from '../../constants/footerData';
 
 interface FooterSectionProps {
   header: string;
@@ -60,26 +59,31 @@ const NewsletterSubscription = () => (
   </div>
 );
 
+const handleClick = (e: React.MouseEvent<HTMLElement>, url?: string) => {
+  e.preventDefault();
+  if (!url) return;
+
+  if (url.startsWith('#')) {
+    document
+      .getElementById(url.substring(1))
+      ?.scrollIntoView({ behavior: 'smooth' });
+  } else if (url.startsWith('http') || url.startsWith('www.')) {
+    window.open(url.startsWith('www.') ? `https://${url}` : url, '_blank');
+  }
+};
+
 const FooterSection = ({ header, links }: FooterSectionProps) => (
   <div className="flex flex-col p-5 text-start">
     <h2 className="text-lg font-medium sm:text-xl">{header}</h2>
-
     <ul className="mt-3 space-y-2 text-sm sm:text-base xl:space-y-3">
-      {links.map((link, index) => (
+      {links.map(({ url, text }, index) => (
         <li key={index}>
-          <Link
-            href={link.url}
-            className="text-base text-gray-500 hover:text-gray-900"
-            scroll={false}
-            onClick={(e) => {
-              e.preventDefault();
-              document
-                .querySelector(link.url)
-                ?.scrollIntoView({ behavior: 'smooth' });
-            }}
+          <div
+            className="cursor-pointer text-gray-500 hover:text-gray-900"
+            onClick={(e) => handleClick(e, url)}
           >
-            {link.text}
-          </Link>
+            {text}
+          </div>
         </li>
       ))}
     </ul>

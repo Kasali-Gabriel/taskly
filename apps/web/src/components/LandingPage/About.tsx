@@ -1,6 +1,7 @@
 import { sections } from '@/constants/aboutData';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
+
 const SectionHeader = ({
   title,
   subtitle,

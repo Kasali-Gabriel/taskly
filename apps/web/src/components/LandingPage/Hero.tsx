@@ -74,11 +74,11 @@ const Hero = () => {
 
   const RightSection = () => (
     <div className="mb-20 flex flex-col items-start justify-start space-y-4 px-5 sm:pl-10">
-      <h2 className="rounded-3xl border-2 border-stone-500 px-4 py-2 lg:mt-20">
+      <h2 className="hidden rounded-3xl border-2 border-stone-500 px-4 py-2 sm:block lg:mt-20">
         Task Management
       </h2>
 
-      <h1 className="pt-7 text-5xl font-semibold sm:text-7xl md:pt-0 md:text-5xl">
+      <h1 className="text-5xl font-semibold sm:pt-7 sm:text-7xl md:pt-0 md:text-5xl">
         Easier{' '}
         <span className="text-blue-500">
           task <br className="hidden lg:block" />

@@ -2,9 +2,9 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import SignUpBtn from '../Buttons/SignUpBtn';
 
 import { ReactNode } from 'react';
+import LoginBtn from '../Buttons/loginBtn';
 
 interface NavLinkProps {
   href: string;
@@ -46,7 +46,7 @@ const Navbar = () => {
           <NavLink href="#testimonials">Testimonials</NavLink>
         </div>
 
-        <SignUpBtn />
+        <LoginBtn />
       </div>
     </div>
   );
