@@ -36,7 +36,7 @@ const SideBar = () => {
   }, [setSideBar]);
 
   return (
-    <div className="relative flex">
+    <aside className="relative flex">
       <AnimatePresence>
         {isSideBarVisible && (
           <>
@@ -110,7 +110,7 @@ const SideBar = () => {
           </>
         )}
       </AnimatePresence>
-    </div>
+    </aside>
   );
 };
 

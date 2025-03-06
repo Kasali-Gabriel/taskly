@@ -59,3 +59,35 @@ export const taskSchema = z
     message: 'Due date must be after the start date.',
     path: ['dueDate'],
   });
+
+export const SignUpSchema = z.object({
+  name: z.string().min(3, {
+    message: '❌ Name must be at least 3 characters.',
+  }),
+  email: z.string().email({
+    message: '❌ Please enter a valid email address.',
+  }),
+  password: z
+    .string()
+    .min(6, {
+      message: '❌ Password must be a minimum of 6 characters',
+    })
+    .regex(/[A-Z]/, {
+      message: '❌ Password must include at least one uppercase letter',
+    })
+    .regex(/[a-z]/, {
+      message: '❌ Password must include at least one lowercase letter',
+    })
+    .regex(/[0-9]/, {
+      message: '❌ Password must include at least one number',
+    }),
+});
+
+export const LoginSchema = z.object({
+  email: z.string().email({
+    message: '❌ Please enter a valid email address.',
+  }).transform((email) => email.toLowerCase()),
+  password: z.string().min(6, {
+    message: '❌ Password is required.',
+  }),
+});

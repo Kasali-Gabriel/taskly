@@ -1,3 +1,5 @@
+import { ApolloWrapper } from '@/apollo/ApolloWrapper';
+import { UserProvider } from '@/context/UserContext';
 import type { Metadata } from 'next';
 import './globals.css';
 
@@ -14,7 +16,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="flex items-center justify-center bg-blue-50">
-        {children}
+        <ApolloWrapper>
+          <UserProvider>{children}</UserProvider>
+        </ApolloWrapper>
       </body>
     </html>
   );

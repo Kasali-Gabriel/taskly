@@ -16,7 +16,7 @@ const NavbarHome = ({ isSideBarVisible }: { isSideBarVisible: boolean }) => {
 
   return (
     <AnimatePresence>
-      <motion.nav
+      <motion.header
         initial={{ y: '-100%' }}
         animate={{ y: 0 }}
         exit={{ y: '-100%' }}
@@ -65,7 +65,7 @@ const NavbarHome = ({ isSideBarVisible }: { isSideBarVisible: boolean }) => {
         </motion.div>
 
         {/* Right Section */}
-        <div className="flex items-center space-x-2 sm:space-x-4">
+        <nav className="flex items-center space-x-2 sm:space-x-4">
           <SearchBar placeholder="Search" />
 
           <Notification />
@@ -75,8 +75,8 @@ const NavbarHome = ({ isSideBarVisible }: { isSideBarVisible: boolean }) => {
           </div>
 
           <Profile />
-        </div>
-      </motion.nav>
+        </nav>
+      </motion.header>
     </AnimatePresence>
   );
 };

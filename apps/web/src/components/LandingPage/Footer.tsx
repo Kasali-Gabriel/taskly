@@ -92,7 +92,7 @@ const FooterSection = ({ header, links }: FooterSectionProps) => (
 
 const Footer = () => {
   return (
-    <div className="flex w-full flex-col items-center justify-center bg-blue-100 px-2 sm:px-10 md:px-14 xl:px-28">
+    <footer className="flex w-full flex-col items-center justify-center bg-blue-100 px-2 sm:px-10 md:px-14 xl:px-28">
       <div className="grid w-full grid-cols-2 gap-x-10 pt-10 lg:grid-cols-4">
         <div className="hidden lg:block">
           <NewsletterSubscription />
@@ -141,7 +141,7 @@ const Footer = () => {
           <AppStoreButton />
         </div>
       </div>
-    </div>
+    </footer>
   );
 };
 

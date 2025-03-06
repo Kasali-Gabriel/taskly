@@ -12,6 +12,15 @@ type Attachment {
   url: String!
 }
 
+type AuthPayload {
+  accessToken: String!
+  email: String!
+  id: String!
+  name: String!
+  profilePicture: String
+  refreshToken: String!
+}
+
 type Comment {
   id: String!
   task: Task!
@@ -42,15 +51,31 @@ input CreateTaskInput {
   title: String!
 }
 
+input CreateUserInput {
+  email: String!
+  name: String!
+  password: String!
+  profilePicture: String
+}
+
 """
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
 scalar DateTime
 
+input LoginInput {
+  email: String!
+  password: String!
+}
+
 type Mutation {
+  changeUserPassword(updatePasswordInput: UpdatePasswordInput!): User!
   createProject(createProjectInput: CreateProjectInput!): Project!
   createTask(createTaskInput: CreateTaskInput!): Task!
+  createUser(createUserInput: CreateUserInput!): User!
+  signOut(userId: String!): Boolean!
   updateTaskStatus(updateTaskStatusInput: UpdateTaskStatusInput!): Task!
+  userLogin(loginInput: LoginInput!): AuthPayload!
 }
 
 type Project {
@@ -115,6 +140,13 @@ type Team {
   productOwnerUserId: String
   projectManagerUserId: String
   projectTeams: [ProjectTeam!]!
+}
+
+input UpdatePasswordInput {
+  confirmPassword: String!
+  newPassword: String!
+  oldPassword: String!
+  userId: String!
 }
 
 input UpdateTaskStatusInput {

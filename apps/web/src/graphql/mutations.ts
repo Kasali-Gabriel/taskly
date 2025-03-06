@@ -1,5 +1,28 @@
 import { gql } from '@apollo/client';
 
+export const CREATE_USER = gql`
+  mutation CreateUser($createUserInput: CreateUserInput!) {
+    createUser(createUserInput: $createUserInput) {
+      id
+      name
+      email
+    }
+  }
+`;
+
+export const USER_LOGIN = gql`
+  mutation userLogin($loginInput: LoginInput!) {
+    userLogin(loginInput: $loginInput) {
+      id
+      email
+      name
+      profilePicture
+      accessToken
+      refreshToken
+    }
+  }
+`;
+
 export const CREATE_TASK = gql`
   mutation CreateTask($createTaskInput: CreateTaskInput!) {
     createTask(createTaskInput: $createTaskInput) {
@@ -29,5 +52,11 @@ export const CREATE_PROJECT = gql`
       startDate
       endDate
     }
+  }
+`;
+
+export const SIGN_OUT = gql`
+  mutation signOut($userId: String!) {
+    signOut(userId: $userId)
   }
 `;

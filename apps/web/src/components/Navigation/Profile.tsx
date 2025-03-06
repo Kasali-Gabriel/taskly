@@ -1,6 +1,9 @@
+import { UserContext } from '@/context/UserContext';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
-import { ChevronDown, Lock, LogOut, Settings, User } from 'lucide-react';
+import { ChevronDown, Lock, Settings, User } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { useContext } from 'react';
+import SignOutBtn from '../Buttons/SignOutBtn';
 import { ThemeToggler } from '../Theme/themeToggler';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import {
@@ -22,6 +25,8 @@ import {
 const Profile = () => {
   const router = useRouter();
 
+  const { user } = useContext(UserContext);
+
   const menuItems = [
     {
       label: 'Settings',
@@ -32,30 +37,23 @@ const Profile = () => {
     },
     { label: 'Team' },
     { label: 'Subscription' },
-    {
-      label: 'Sign Out',
-      icon: (
-        <LogOut className="text-dark dark:text-light h-[1.2rem] w-[1.2rem] sm:scale-125" />
-      ),
-      onClick: () => router.push('/'),
-    },
   ];
 
   return (
     <div>
       <div className="block sm:hidden">
         <Drawer>
-          <DrawerTrigger className='hover:bg-transparent focus:outline-none focus:bg-transparent'>
+          <DrawerTrigger className="hover:bg-transparent focus:bg-transparent focus:outline-none">
             <div className="flex items-center justify-center rounded-lg bg-inherit hover:bg-gray-300 xl:-mr-0 xl:px-2 dark:hover:bg-gray-500">
               <Avatar>
-                <AvatarImage src="/" />
+                <AvatarImage src={user?.profilePicture} />
                 <AvatarFallback className="bg-blue-400">
                   <User />
                 </AvatarFallback>
               </Avatar>
 
               <div className="ml-3 hidden flex-col items-start space-y-1 py-2 text-xs lg:flex">
-                <p className="font-bold">John Doe</p>
+                <p className="font-bold">{user?.name}</p>
                 <div className="flex items-center justify-between space-x-2 font-light">
                   <p>Personal</p>
                   <Lock size={12} />
@@ -90,6 +88,7 @@ const Profile = () => {
                   <p className="text-lg font-medium">{item.label}</p>
                 </div>
               ))}
+              <SignOutBtn />
             </div>
           </DrawerContent>
         </Drawer>
@@ -99,14 +98,14 @@ const Profile = () => {
           <DropdownMenuTrigger>
             <div className="flex items-center justify-center rounded-lg bg-inherit hover:bg-gray-300 xl:-mr-0 xl:px-2 dark:hover:bg-gray-500">
               <Avatar>
-                <AvatarImage src="/" />
+                <AvatarImage src={user?.profilePicture} />
                 <AvatarFallback className="bg-blue-400">
                   <User />
                 </AvatarFallback>
               </Avatar>
 
               <div className="ml-3 hidden flex-col items-start space-y-1 py-2 text-xs lg:flex">
-                <p className="font-bold">John Doe</p>
+                <p className="font-bold">{user?.name}</p>
                 <div className="flex items-center justify-between space-x-2 font-light">
                   <p>Personal</p>
                   <Lock size={12} />
@@ -131,6 +130,7 @@ const Profile = () => {
                 <p className="text-lg font-medium">{item.label}</p>
               </DropdownMenuItem>
             ))}
+            <SignOutBtn />
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

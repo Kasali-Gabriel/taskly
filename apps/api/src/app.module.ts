@@ -9,6 +9,7 @@ import { TaskModule } from './task/task.module';
 import { ProjectModule } from './project/project.module';
 import { APP_PIPE } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { ValidationPipe } from '@nestjs/common';
       sortSchema: true,
     }),
     ConfigModule.forRoot({ isGlobal: true }),
+    AuthModule,
     UserModule,
     TeamModule,
     TaskModule,

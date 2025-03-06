@@ -27,7 +27,7 @@ const NavLink = ({ href, children }: NavLinkProps) => (
 
 const Navbar = () => {
   return (
-    <div
+    <header
       className="flex w-screen max-w-screen-2xl p-2 sm:px-5 sm:py-4 xl:px-20"
       id="home"
     >
@@ -40,15 +40,15 @@ const Navbar = () => {
           className="-ml-4 scale-75 object-cover sm:-ml-0 sm:scale-[0.85] lg:scale-100"
         />
 
-        <div className="-ml-2 hidden space-x-1 md:flex xl:-ml-0 xl:space-x-4">
+        <nav className="-ml-2 hidden space-x-1 md:flex xl:-ml-0 xl:space-x-4">
           <NavLink href="#about">About Us</NavLink>
           <NavLink href="#features">Features</NavLink>
           <NavLink href="#testimonials">Testimonials</NavLink>
-        </div>
+        </nav>
 
         <LoginBtn />
       </div>
-    </div>
+    </header>
   );
 };
 
