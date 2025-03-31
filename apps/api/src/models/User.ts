@@ -1,9 +1,9 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { TaskAssignment } from './TaskAssignment';
 import { Attachment } from './Attachment';
 import { Comment } from './Comment';
 import { Task } from './Task';
 import { Team } from './Team';
+import { ProjectMember } from './ProjectMember';
 
 @ObjectType()
 export class User {
@@ -19,12 +19,6 @@ export class User {
   @Field({ nullable: true })
   profilePicture?: string;
 
-  @Field({ nullable: true })
-  teamId?: string;
-
-  @Field(() => [TaskAssignment])
-  taskAssignment: TaskAssignment[];
-
   @Field(() => [Attachment])
   attachments: Attachment[];
 
@@ -37,6 +31,9 @@ export class User {
   @Field(() => [Task])
   assignedTasks: Task[];
 
-  @Field(() => Team, { nullable: true })
-  team?: Team;
+  @Field(() => [Team],)
+  teams: Team;
+
+  @Field(() => ProjectMember, { nullable: true })
+  projectMembers?: ProjectMember;
 }

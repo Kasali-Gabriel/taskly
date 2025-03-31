@@ -21,9 +21,7 @@ const NavbarHome = ({ isSideBarVisible }: { isSideBarVisible: boolean }) => {
         animate={{ y: 0 }}
         exit={{ y: '-100%' }}
         transition={{ duration: 0.2, ease: 'easeInOut' }}
-        className={`${
-          isSideBarVisible ? 'xl:mx-4' : 'xl:mr-4'
-        } flex items-center justify-between border-b border-stone-300 px-2 md:py-3 xl:py-2 dark:border-stone-600`}
+        className="dark:bg-dark absolute left-0 right-0 top-0 z-20 flex h-[4rem] items-center justify-between border-b border-stone-300 bg-white px-2 py-2 shadow-md dark:border-stone-600 dark:shadow-lg"
       >
         <motion.div
           initial={{ x: 0 }}
@@ -31,28 +29,21 @@ const NavbarHome = ({ isSideBarVisible }: { isSideBarVisible: boolean }) => {
             x: isSideBarVisible ? -500 : 0,
           }}
           transition={{
-            type: 'spring',
-            stiffness: 300,
-            damping: 30,
-            duration: 0.4,
+            duration: 0.3,
             ease: 'easeInOut',
           }}
           className="flex items-center sm:last:space-x-2"
         >
           {!isSideBarVisible && (
-            <motion.button
-              initial={{ scale: 1 }}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ rotate: 15 }}
-              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-              className="rounded-none bg-inherit hover:bg-transparent"
+            <button
+              className="rounded-none bg-inherit hover:scale-110 focus:outline-none"
               onClick={toggleSideBar}
             >
               <Menu
                 className="text-dark dark:text-light -ml-2 scale-90 sm:-ml-0 sm:scale-100"
                 size={45}
               />
-            </motion.button>
+            </button>
           )}
 
           <Image
@@ -60,6 +51,7 @@ const NavbarHome = ({ isSideBarVisible }: { isSideBarVisible: boolean }) => {
             alt="logo"
             width={165}
             height={50}
+            priority
             className="-ml-6 scale-[0.675] object-cover sm:-ml-3 sm:scale-[0.85] lg:ml-3 lg:scale-100 xl:-ml-0"
           />
         </motion.div>

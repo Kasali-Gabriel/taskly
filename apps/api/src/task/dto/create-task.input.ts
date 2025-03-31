@@ -1,5 +1,5 @@
 import { InputType, Field } from '@nestjs/graphql';
-import { IsString, IsOptional, IsDate } from 'class-validator';
+import { IsString, IsOptional, IsDate, IsArray } from 'class-validator';
 
 @InputType()
 export class CreateTaskInput {
@@ -28,16 +28,13 @@ export class CreateTaskInput {
   @IsString()
   priority?: string;
 
-  @Field({ nullable: true })
-  @IsString()
-  tags?: string;
-
-  @Field({ nullable: true })
-  points?: number;
+  @Field(() => [String], { nullable: true }) 
+  @IsArray()
+  @IsString({ each: true }) 
+  tags?: string[];
 
   @Field()
   @IsString()
-  @IsOptional()
   authorId: string;
 
   @Field({ nullable: true })
@@ -45,7 +42,7 @@ export class CreateTaskInput {
   @IsOptional()
   assigneeId?: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsString()
-  projectId: string;
+  projectId?: string;
 }

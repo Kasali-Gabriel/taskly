@@ -5,6 +5,10 @@ export interface SideBarLinkProps {
   route: string;
   icon: LucideIcon;
   label: string;
+  className?: string;
+  lastModified?: Date;
+  dueDate?: Date;
+  creationTime?: Date;
 }
 
 export interface CollapsibleSectionProps {
@@ -12,7 +16,6 @@ export interface CollapsibleSectionProps {
   isOpen: boolean;
   toggleOpen: () => void;
   links: SideBarLinkProps[];
-  sectionRef: React.RefObject<HTMLDivElement>;
 }
 
 export interface HeaderProps {
@@ -39,10 +42,12 @@ export interface SearchBarProps {
 
 export interface SideBarState {
   value: boolean;
-  priority: boolean;
+  teams: boolean;
   projects: boolean;
+  sortType: string;
+  setSortType: (criteria: string) => void;
   setSideBar: (value: boolean) => void;
-  setPriority: (value: boolean) => void;
+  setTeams: (value: boolean) => void;
   setProjects: (value: boolean) => void;
 }
 
@@ -121,4 +126,10 @@ export interface Testimonial {
 export interface TestimonialCardProps {
   testimonial: Testimonial;
   className: string;
+}
+
+export interface ProjectLink extends SideBarLinkProps {
+  lastModified: Date;
+  dueDate: Date;
+  creationTime: Date;
 }

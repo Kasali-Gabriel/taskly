@@ -2,12 +2,12 @@ import { InputType, Field } from '@nestjs/graphql';
 import { IsString, IsDate } from 'class-validator';
 
 @InputType()
-export class CreateProjectInput {
+export class UpdateProjectInput {
   @Field()
   @IsString()
-  name: string;
+  name?: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsString()
   teamId: string;
 
@@ -17,13 +17,9 @@ export class CreateProjectInput {
 
   @Field()
   @IsDate()
-  startDate: Date;
+  startDate?: Date;
 
   @Field()
   @IsDate()
-  endDate: Date;
-
-  @Field()
-  @IsString()
-  projectOwnerId: string;
+  endDate?: Date;
 }

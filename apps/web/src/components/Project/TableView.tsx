@@ -1,25 +1,13 @@
 'use client';
 
 import { columns } from '@/constants/columns';
-import { GET_TASKS } from '@/graphql/queries';
-import { useQuery } from '@apollo/client';
+import { Project, Task } from '@/types/task';
 import { DataTable } from '../ui/DataTable';
-import Loader from '../ui/Loader';
 
-const TableView = ({ id }: { id: string }) => {
-  const { data, loading } = useQuery(GET_TASKS, {
-    variables: { projectId: id },
-  });
-
-  const tasks = data?.tasks || [];
-
-  if (loading) {
-    return <Loader />;
-  }
-
+const TableView = ({ tasks, project }: { tasks: Task[], project: Project}) => {
   return (
-    <div>
-      <DataTable columns={columns} data={tasks} />
+    <div className='w-full h-full'>
+      <DataTable columns={columns} data={tasks} project={project}/>
     </div>
   );
 };

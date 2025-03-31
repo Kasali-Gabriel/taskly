@@ -1,4 +1,6 @@
-const CalendarView = ({ id }: { id: string }) => {
+import { Task } from '@/types/task';
+
+const CalendarView = ({ tasks }: { tasks: Task[] }) => {
   return <div>CalendarView</div>;
 };
 

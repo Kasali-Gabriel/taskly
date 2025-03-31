@@ -22,8 +22,9 @@ const SignOutBtn = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const { user, setUser } = useContext(UserContext);
-
-  const [signOut] = useMutation(SIGN_OUT);
+  const [signOut] = useMutation(SIGN_OUT, {
+    onCompleted: () => setIsDialogOpen(false),
+  });
 
   const handleSignOut = async () => {
     startTransition(async () => {
@@ -52,7 +53,12 @@ const SignOutBtn = () => {
 
       {isDialogOpen && (
         <Dialog open={isDialogOpen}>
-          <DialogContent className="flex max-w-[70vw] flex-col items-center justify-center p-6 md:p-8 xl:p-10">
+          <DialogContent
+            onPointerDownOutside={(e) => e.preventDefault()}
+            onEscapeKeyDown={(e) => e.preventDefault()}
+            onInteractOutside={(e) => e.preventDefault()}
+            className="flex max-w-[70vw] flex-col items-center justify-center p-6 md:p-8 xl:p-10"
+          >
             <DialogHeader className="mb-4 flex w-full items-center justify-center text-center text-xl">
               <DialogTitle>Signing out</DialogTitle>
 

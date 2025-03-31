@@ -1,22 +1,19 @@
-
 import { Field, ObjectType } from '@nestjs/graphql';
+
 import { Project } from './Project';
-import { Team } from './Team';
+import { User } from './User';
 
 @ObjectType()
-export class ProjectTeam {
-  @Field()
-  id: string;
-
+export class ProjectMember {
   @Field()
   projectId: string;
 
   @Field()
-  teamId: string;
+  userId: string;
 
   @Field(() => Project)
   project: Project;
 
-  @Field(() => Team)
-  team: Team;
+  @Field(() => User)
+  user: User;
 }

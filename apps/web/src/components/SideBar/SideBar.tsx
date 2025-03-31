@@ -1,10 +1,6 @@
 'use client';
 
-import {
-  priorityLinks,
-  projectLinks,
-  sidebarLinks,
-} from '@/constants/sidebarData';
+import SidebarData from '@/components/SideBar/sidebarData';
 import { useSideBarStore } from '@/lib/state';
 import { ChevronsLeft } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
@@ -16,16 +12,16 @@ import { SideBarLink } from './SideBarLink';
 const SideBar = () => {
   const {
     value: isSideBarVisible,
-    priority: isPriorityOpen,
+    teams: isTeamOpen,
     projects: isProjectsOpen,
     setSideBar,
-    setPriority,
+    setTeams,
     setProjects,
   } = useSideBarStore();
 
+  const { sidebarLinks, projectLinks, teamLinks } = SidebarData();
+
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
-  const workspaceRef = useRef<HTMLDivElement | null>(null);
-  const priorityRef = useRef<HTMLDivElement | null>(null);
 
   const toggleSideBar = () => setSideBar(!isSideBarVisible);
 
@@ -44,7 +40,7 @@ const SideBar = () => {
               initial={{ x: '-100%' }}
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
-              transition={{ duration: 0.5, ease: 'easeInOut' }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
               className="bg-light2 dark:bg-dark2 absolute inset-y-2 left-2 z-40 flex w-64 flex-col rounded-2xl border-2 shadow-lg dark:border-stone-700"
             >
               <button
@@ -60,45 +56,46 @@ const SideBar = () => {
                   src="/logo.png"
                   alt="logo"
                   width={200}
+                  priority
                   height={75}
-                  className="-ml-2 scale-75 object-cover sm:scale-[0.85] xl:-ml-0 xl:scale-100"
+                  className="-ml-2  scale-75 object-cover sm:scale-[0.85] xl:-ml-0 xl:scale-100"
                 />
               </div>
 
               <div className="mx-3 -mt-3 mb-3 h-[2px] bg-stone-300 dark:bg-stone-600" />
 
+              {sidebarLinks.map((link) => (
+                <SideBarLink
+                  key={link.route}
+                  route={link.route}
+                  icon={link.icon}
+                  label={link.label}
+                  className="py-2"
+                />
+              ))}
+
+              <div className="mx-3 mt-2 h-[2px] bg-stone-300 dark:bg-stone-600" />
+
               <div
                 ref={scrollContainerRef}
-                className="scrollbar scrollbar-thumb-stone-400 scrollbar-thumb-rounded-full dark:scrollbar-thumb-slate-500 scrollbar-w-[5px] mb-3 flex-1 overflow-y-auto"
+                className="scrollbar scrollbar-thumb-stone-400 scrollbar-thumb-rounded-full dark:scrollbar-thumb-slate-500 scrollbar-w-[5px] mb-3 mt-1.5 flex-1 space-y-2 overflow-y-auto"
               >
-                {sidebarLinks.map((link) => (
-                  <SideBarLink
-                    key={link.route}
-                    route={link.route}
-                    icon={link.icon}
-                    label={link.label}
-                  />
-                ))}
-
-                <div className="mx-3 mt-2 h-[2px] bg-stone-300 dark:bg-stone-600" />
-
                 <CollapsibleSection
                   title="Projects"
                   isOpen={isProjectsOpen}
                   toggleOpen={() => setProjects(!isProjectsOpen)}
                   links={projectLinks}
-                  sectionRef={workspaceRef}
                 />
 
                 <CollapsibleSection
-                  title="Priority"
-                  isOpen={isPriorityOpen}
-                  toggleOpen={() => setPriority(!isPriorityOpen)}
-                  links={priorityLinks}
-                  sectionRef={priorityRef}
+                  title="Teams"
+                  isOpen={isTeamOpen}
+                  toggleOpen={() => setTeams(!isTeamOpen)}
+                  links={teamLinks}
                 />
               </div>
             </motion.div>
+
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.9 }}

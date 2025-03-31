@@ -8,8 +8,8 @@ import { GoogleStrategy } from './strategies/google.strategy';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { JwtStrategy } from './strategies/jwt.strategy';
-import { UserService } from 'src/user/user.service';
 import refreshConfig from './config/refresh.config';
+import { TeamService } from 'src/team/team.service';
 
 @Module({
   imports: [
@@ -20,14 +20,14 @@ import refreshConfig from './config/refresh.config';
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         secret: configService.get<string>('JWT_SECRET'),
-        signOptions: { expiresIn: '1d' },
+        signOptions: { expiresIn: '7d' },
       }),
     }),
   ],
 
   providers: [
     AuthService,
-    UserService,
+    TeamService,
     GoogleStrategy,
     AuthResolver,
     PrismaService,

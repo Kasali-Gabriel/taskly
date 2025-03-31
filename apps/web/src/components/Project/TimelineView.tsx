@@ -1,13 +1,10 @@
 'use client';
 
-import { GET_TASKS } from '@/graphql/queries';
 import { Task, TaskTypeItems } from '@/types/task';
-import { useQuery } from '@apollo/client';
 import { DisplayOption, Gantt, ViewMode } from 'gantt-task-react';
 import 'gantt-task-react/dist/index.css';
 import { useTheme } from 'next-themes';
 import { useCallback, useMemo, useState } from 'react';
-import Loader from '../ui/Loader';
 import {
   Select,
   SelectContent,
@@ -16,13 +13,7 @@ import {
   SelectValue,
 } from '../ui/select';
 
-const TimelineView = ({ id }: { id: string }) => {
-  const { data, loading } = useQuery(GET_TASKS, {
-    variables: { projectId: id },
-  });
-
-  const tasks = data?.tasks || [];
-
+const TimelineView = ({ tasks }: { tasks: Task[] }) => {
   const { theme } = useTheme();
   const darkMode = theme === 'dark' || theme === undefined;
 
@@ -53,10 +44,6 @@ const TimelineView = ({ id }: { id: string }) => {
         })) || []
     );
   }, [tasks]);
-
-  if (loading) {
-    return <Loader />;
-  }
 
   const hasTasks = ganttTasks.length > 0;
 

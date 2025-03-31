@@ -54,6 +54,14 @@ html {
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
   .dark {
     --background: 0 0% 3.9%;
@@ -80,6 +88,14 @@ html {
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
 
@@ -94,7 +110,7 @@ html {
 
 /* TIMELINE STYLING */
 .timeline ._3_ygE {
-  @apply dark:border-stroke-dark rounded-tl-md border border-r-0 border-border;
+  @apply dark:border-stroke-dark border-border rounded-tl-md border border-r-0;
 }
 .timeline ._2eZzQ {
   @apply dark:border-stroke-dark border-border;
@@ -123,7 +139,7 @@ html {
   @apply dark:bg-dark2 stroke-border;
 }
 .timeline ._3ZbQT {
-  @apply dark:border-stroke-dark border-l-0 border-border;
+  @apply dark:border-stroke-dark border-border border-l-0;
 }
 .timeline ._3T42e {
   @apply dark:bg-dark bg-light2;
@@ -137,7 +153,13 @@ html {
   height: 0px;
 }
 
-
-
-
-
+.dropdown-scroll {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+  -webkit-overflow-scrolling: touch;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  opacity: 0.99;
+}

@@ -8,10 +8,12 @@ export const useSideBarStore = create<SideBarState>()(
   persist(
     (set) => ({
       value: false,
-      priority: false,
+      teams: false,
       projects: false,
+      sortType: 'lastModified',
+      setSortType: (criteria: string) => set({ sortType: criteria }),
       setSideBar: (value: boolean) => set({ value }),
-      setPriority: (value: boolean) => set({ priority: value }),
+      setTeams: (value: boolean) => set({ teams: value }),
       setProjects: (value: boolean) => set({ projects: value }),
     }),
     {
@@ -23,7 +25,7 @@ export const useSideBarStore = create<SideBarState>()(
 export const useTabStore = create<TabState>()(
   persist(
     (set) => ({
-      activeTab: 'Board',
+      activeTab: '',
       setActiveTab: (activeTab: string) => set({ activeTab }),
     }),
     {

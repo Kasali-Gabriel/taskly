@@ -1,15 +1,23 @@
 'use client';
 
-import AddButton from '@/components/Buttons/AddButton';
 import Header from '@/components/Headers/Header';
 import BoardView from '@/components/Project/BoardView';
 import CalendarView from '@/components/Project/CalendarView';
+import Overview from '@/components/Project/Overview';
 import TableView from '@/components/Project/TableView';
 import TimelineView from '@/components/Project/TimelineView';
-import SearchBar from '@/components/SearchBar/SearchBar';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { GET_PROJECT_BY_ID } from '@/graphql/queries';
 import { useSideBarStore, useTabStore } from '@/lib/state';
-import { Calendar, Clock, Filter, Grid3X3, Share2, Table } from 'lucide-react';
+import { Task } from '@/types/task';
+import { useQuery } from '@apollo/client';
+import {
+  Calendar,
+  Clock,
+  LayoutGrid,
+  SquareChartGantt,
+  Table,
+} from 'lucide-react';
 import { use } from 'react';
 
 type Props = {
@@ -39,16 +47,13 @@ const TabTrigger = ({
   icon: React.ComponentType<{ className?: string }>;
   label: string;
 }) => {
-  const { value: isSideBarVisible } = useSideBarStore();
   return (
     <TabsTrigger
       value={value}
-      className={`flex ${isSideBarVisible ? 'space-x-1 md:space-x-2' : 'sm:space-x-2'}`}
+      className="flex items-center justify-center space-x-1"
     >
-      <Icon
-        className={`hidden sm:inline-flex ${isSideBarVisible ? 'h-4 w-4 md:h-5 md:w-5' : 'h-5 w-5'}`}
-      />
-      <span>{label}</span>
+      <Icon className="h-4 w-4 sm:h-5 sm:w-5" />
+      <span className="mt-0.5 sm:mt-[0.175rem]">{label}</span>
     </TabsTrigger>
   );
 };
@@ -58,14 +63,20 @@ const Page = ({ params }: Props) => {
   const { activeTab, setActiveTab } = useTabStore();
   const { value: isSideBarVisible } = useSideBarStore();
 
+  const { data } = useQuery(GET_PROJECT_BY_ID, {
+    variables: { projectId: id },
+  });
+
+  const project = data?.getProjectById;
+  const tasks: Task[] = project?.tasks || [];
+
   return (
     <div
-      className={`relative py-4 ${isSideBarVisible ? 'pl-2 xl:px-12' : 'px-2 sm:px-6 xl:px-12'} `}
+      className={`relative h-full w-full pt-3 ${isSideBarVisible ? 'px-2 sm:pl-4 xl:pl-10' : 'px-2 sm:pl-4 xl:px-10'} `}
     >
       <div className="relative ml-1 mr-2">
-        <div className="relative flex justify-between pt-4">
-          <Header name="Product Development " />
-          <AddButton />
+        <div className="relative flex justify-between">
+          <Header name={project?.name} />
         </div>
       </div>
 
@@ -75,43 +86,42 @@ const Page = ({ params }: Props) => {
         onValueChange={setActiveTab}
       >
         <TabsList
-          className={`mb-5 flex flex-col space-y-4 px-2 lg:flex-row-reverse lg:items-center lg:justify-between lg:space-y-0 ${isSideBarVisible ? 'text-sm md:text-lg lg:flex lg:flex-col lg:space-y-6 lg:text-xl xl:flex-row-reverse xl:items-center xl:justify-between xl:space-y-0' : 'text-base sm:text-lg lg:text-xl'}`}
+          className={`flex w-screen flex-row items-center justify-start space-x-2 overflow-x-auto bg-[#E9ECEF] p-1 sm:w-full sm:rounded-md dark:bg-[#252836] ${isSideBarVisible ? 'text-sm md:text-lg lg:text-xl' : 'text-base sm:text-lg lg:text-xl'}`}
         >
-          <div
-            className={`flex flex-row items-center justify-between ${isSideBarVisible ? 'w-full xl:w-auto' : 'w-full lg:w-auto'} `}
-          >
-            <div className="mx-2 flex space-x-2">
-              <IconButton icon={Filter} />
-              <IconButton icon={Share2} />
-            </div>
-
-            <SearchBar placeholder="Search Tasks" />
-          </div>
-
-          <div
-            className={`grid h-full w-full grid-cols-4 ${isSideBarVisible ? 'lg:w-full xl:w-[60%]' : 'lg:w-[60%]'} `}
-          >
-            <TabTrigger value="Board" icon={Grid3X3} label="Board" />
-            <TabTrigger value="Calendar" icon={Calendar} label="Calendar" />
-            <TabTrigger value="Timeline" icon={Clock} label="Timeline" />
-            <TabTrigger value="Table" icon={Table} label="Table" />
-          </div>
+          <TabTrigger
+            value="Overview"
+            icon={SquareChartGantt}
+            label="Overview"
+          />
+          <TabTrigger value="Board" icon={LayoutGrid} label="Board" />
+          <TabTrigger value="Calendar" icon={Calendar} label="Calendar" />
+          <TabTrigger value="Timeline" icon={Clock} label="Timeline" />
+          <TabTrigger value="Table" icon={Table} label="Table" />
         </TabsList>
 
+        {/* <div className="mx-2 flex space-x-2">
+            <IconButton icon={Filter} />
+            <IconButton icon={ArrowDownUp} />
+          </div> */}
+
+        <TabsContent value="Overview">
+          <Overview project={project} />
+        </TabsContent>
+
         <TabsContent value="Board">
-          <BoardView id={id} />
+          <BoardView tasks={tasks} />
         </TabsContent>
 
         <TabsContent value="Calendar">
-          <CalendarView id={id} />
+          <CalendarView tasks={tasks} />
         </TabsContent>
 
         <TabsContent value="Timeline">
-          <TimelineView id={id} />
+          <TimelineView tasks={tasks} />
         </TabsContent>
 
         <TabsContent value="Table">
-          <TableView id={id} />
+          <TableView tasks={tasks} project={project} />
         </TabsContent>
       </Tabs>
     </div>

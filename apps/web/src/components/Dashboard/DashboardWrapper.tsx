@@ -11,20 +11,26 @@ export const DashboardWrapper = ({ children }: { children: ReactNode }) => {
   const { value: isSideBarVisible } = useSideBarStore();
 
   return (
-    <div className="text-dark dark:text-light dark:bg-dark bg-light relative flex h-screen w-screen max-w-screen-2xl overflow-hidden md:text-lg lg:text-xl xl:text-base 2xl:text-2xl">
+    <div className="text-dark dark:text-light dark:bg-dark bg-light relative flex h-screen w-screen max-w-screen-2xl overflow-hidden">
       <Suspense>
         <SideBar />
       </Suspense>
 
-      <motion.main
-        className={`flex w-full flex-col px-1 transition-all ${isSideBarVisible ? 'sm:ml-[16rem]' : ''} overflow-hidden`}
-        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+      <motion.div
+        initial={{ marginLeft: 0 }}
+        animate={{ marginLeft: isSideBarVisible ? 256 : 0 }}
+        transition={{ duration: 0.3, ease: 'easeInOut' }}
+        className="flex w-full flex-col overflow-x-hidden"
       >
         <Suspense>
           <NavbarHome isSideBarVisible={isSideBarVisible} />
         </Suspense>
-        {children}
-      </motion.main>
+
+        <main className="mt-[4rem] flex h-full w-full flex-col">
+          {children}
+        </main>
+      </motion.div>
+
       <Toaster />
     </div>
   );

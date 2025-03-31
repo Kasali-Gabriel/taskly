@@ -1,7 +1,8 @@
-
 import { Field, ObjectType } from '@nestjs/graphql';
 import { Task } from './Task';
-import { ProjectTeam } from './ProjectTeam';
+import { ProjectMember } from './ProjectMember';
+import { Team } from './Team';
+import { User } from './User';
 
 @ObjectType()
 export class Project {
@@ -14,15 +15,27 @@ export class Project {
   @Field({ nullable: true })
   description?: string;
 
-  @Field({ nullable: true })
-  startDate?: Date;
+  @Field()
+  startDate: Date;
 
-  @Field({ nullable: true })
-  endDate?: Date;
+  @Field()
+  endDate: Date;
+
+  @Field()
+  createdOn: Date;
+
+  @Field()
+  modifiedOn: Date;
 
   @Field(() => [Task])
   tasks: Task[];
 
-  @Field(() => [ProjectTeam])
-  projectTeams: ProjectTeam[];
+  @Field(() => Team)
+  team: Team;
+
+  @Field(() => [ProjectMember])
+  projectMembers: ProjectMember[];
+
+  @Field(() => User)
+  projectOwner: User;
 }

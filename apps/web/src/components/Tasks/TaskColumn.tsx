@@ -31,9 +31,9 @@ const TaskColumn = ({ status, tasks, moveTask }: TaskColumnProps) => {
       ref={(instance) => {
         drop(instance);
       }}
-      className={`rounded-lg py-2 xl:py-4 ${isOver ? 'bg-blue-100 dark:bg-neutral-950' : ''} `}
+      className={`rounded-lg py-2 ${isOver ? 'bg-blue-100 dark:bg-neutral-950' : ''} `}
     >
-      <div className="mb-3 flex w-full">
+      <div className="mb-3 flex w-[70vw] sm:w-[32.5vw] lg:w-[22.5vw]">
         <div
           className={`w-2 rounded-s-lg`}
           style={{ backgroundColor: statusColor[status] }}

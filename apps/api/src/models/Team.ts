@@ -1,7 +1,7 @@
-
 import { Field, ObjectType } from '@nestjs/graphql';
+import { Project } from './Project';
 import { User } from './User';
-import { ProjectTeam } from './ProjectTeam';
+import { TeamUser } from './TeamUser';
 
 @ObjectType()
 export class Team {
@@ -11,15 +11,12 @@ export class Team {
   @Field()
   name: string;
 
-  @Field({ nullable: true })
-  productOwnerUserId?: string;
+  @Field()
+  teamOwnerId?: string;
 
-  @Field({ nullable: true })
-  projectManagerUserId?: string;
+  @Field(() => [TeamUser], { nullable: true })
+  members: TeamUser[];
 
-  @Field(() => [User])
-  members: User[];
-
-  @Field(() => [ProjectTeam])
-  projectTeams: ProjectTeam[];
+  @Field(() => [Project], { nullable: true })
+  project?: Project[];
 }

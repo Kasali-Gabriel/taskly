@@ -1,9 +1,39 @@
+import { UseFormReturn } from 'react-hook-form';
 export interface Project {
   id: string;
   name: string;
   description?: string;
-  startDate: string;
-  endDate: string;
+  projectOwnerId: string;
+  teamId: string;
+  startDate: Date;
+  endDate: Date;
+  createdOn: Date;
+  modifiedOn: Date;
+  tasks: Task[];
+  projectMembers: ProjectMember[];
+  team: Team;
+}
+
+export interface Team {
+  id: string;
+  name: string;
+  teamOwnerId?: string;
+  projects: Project[];
+  members: TeamUser[];
+}
+
+export interface TeamUser {
+  userId: string;
+  teamId: string;
+  user: User;
+  team: Team;
+}
+
+export interface ProjectMember {
+  projectId: string;
+  userId: string;
+  project: Project;
+  user: User;
 }
 
 export interface Task {
@@ -15,12 +45,10 @@ export interface Task {
   status?: Status;
   priority?: Priority;
   tags?: string;
-  points?: number;
   projectId?: string;
-  authorId?: string;
+  authorId: string;
   assigneeId?: string;
-
-  author?: User;
+  author: User;
   assignee?: User;
   comments?: Comment[];
   attachments?: Attachment[];
@@ -70,3 +98,4 @@ export interface TaskColumnProps {
 }
 
 export type TaskTypeItems = 'task' | 'milestone' | 'project';
+

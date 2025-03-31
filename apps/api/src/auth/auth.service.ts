@@ -1,7 +1,6 @@
 import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { hash, verify } from 'argon2';
-import { UserService } from 'src/user/user.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { AuthJwtPayload } from 'src/auth/types/auth-jwtPayload';
 import { ConfigService, ConfigType } from '@nestjs/config';
@@ -10,12 +9,13 @@ import { v4 as uuidv4 } from 'uuid';
 import refreshConfig from './config/refresh.config';
 import { User } from '@prisma/client';
 import { LoginInput } from './dto/login.input';
+import { TeamService } from 'src/team/team.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private prisma: PrismaService,
-    private readonly userService: UserService,
+    private readonly teamService: TeamService,
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
     @Inject(refreshConfig.KEY)
@@ -139,7 +139,7 @@ export class AuthService {
       if (!user.profilePicture && googleUser.profilePicture) {
         user = await this.prisma.user.update({
           where: { email },
-          data: { profilePicture: googleUser.profilePicture},
+          data: { profilePicture: googleUser.profilePicture },
         });
       }
       const { password, ...authUser } = user;
@@ -153,6 +153,10 @@ export class AuthService {
         ...googleUser,
       },
     });
+
+    // Create 'My workspace' team for the new user
+    await this.teamService.createTeam('My workspace', dbUser.id);
+
     const { password, ...authUser } = dbUser;
     return authUser;
   }

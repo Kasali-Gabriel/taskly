@@ -1,22 +1,19 @@
-
 import { Field, ObjectType } from '@nestjs/graphql';
-import { Task } from './Task';
+import { Team } from './Team';
 import { User } from './User';
 
 @ObjectType()
-export class TaskAssignment {
-  @Field()
-  id: string;
-
-  @Field()
-  taskId: string;
+export class TeamUser {
 
   @Field()
   userId: string;
 
-  @Field(() => Task)
-  task: Task;
+  @Field()
+  teamId: string;
 
   @Field(() => User)
   user: User;
+
+  @Field(() => Team)
+  team: Team;
 }

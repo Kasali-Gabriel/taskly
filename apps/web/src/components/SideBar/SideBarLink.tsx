@@ -1,8 +1,14 @@
 import { useSideBarStore } from '@/lib/state';
 import { SideBarLinkProps } from '@/types';
+import { Folder, FolderOpen } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 
-export const SideBarLink = ({ route, icon: Icon, label }: SideBarLinkProps) => {
+export const SideBarLink = ({
+  route,
+  icon: Icon,
+  label,
+  className,
+}: SideBarLinkProps) => {
   const pathName = usePathname();
 
   const isActive =
@@ -19,13 +25,22 @@ export const SideBarLink = ({ route, icon: Icon, label }: SideBarLinkProps) => {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full px-3">
       <div
         onClick={handleClick}
-        className={`relative flex cursor-pointer items-center justify-start border-l-4 py-2 pl-8 transition-colors hover:bg-gray-200 dark:hover:bg-gray-700 ${isActive ? 'border-blue-300 bg-gray-300 dark:bg-gray-600' : 'border-transparent'}`}
+        className={`relative flex ${className} cursor-pointer items-center justify-start rounded-xl pl-4 transition-colors hover:bg-gray-200 dark:hover:bg-gray-700 ${isActive ? 'bg-neutral-200 dark:bg-gray-600' : 'border-transparent'}`}
       >
-        <Icon className="mr-5 h-6 w-6" />
-        <span className="text-lg font-medium 2xl:text-xl">{label}</span>
+        {route.startsWith('/projects/') ? (
+          isActive ? (
+            <FolderOpen className="mr-2.5 h-5 w-5" />
+          ) : (
+            <Folder className="mr-2.5 h-5 w-5" />
+          )
+        ) : (
+          <Icon className="mr-2.5 h-5 w-5" />
+        )}
+
+        <span className="mt-1 truncate sm:text-lg 2xl:text-xl">{label}</span>
       </div>
     </div>
   );

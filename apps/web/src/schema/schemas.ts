@@ -34,6 +34,8 @@ export const projectSchema = z.object({
       message: minLengthMessage('Description', 10),
     })
     .optional(),
+  teamId: z.string().min(1),
+  projectOwnerId: z.string().min(1),
 });
 
 export const taskSchema = z
@@ -49,11 +51,10 @@ export const taskSchema = z
     dueDate: z.date({ required_error: 'Due date is required.' }),
     status: z.string().optional(),
     priority: z.string().optional(),
-    tags: z.string().optional(),
-    points: z.number().optional(),
+    tags: z.array(z.string()).optional(),
     authorId: z.string().min(1, { message: 'Author ID is required.' }),
     assigneeId: z.string().optional(),
-    projectId: z.string().min(1, { message: 'Project ID is required.' }),
+    projectId: z.string().optional(),
   })
   .refine((data) => !data.startDate || data.dueDate > data.startDate, {
     message: 'Due date must be after the start date.',
@@ -84,9 +85,12 @@ export const SignUpSchema = z.object({
 });
 
 export const LoginSchema = z.object({
-  email: z.string().email({
-    message: '❌ Please enter a valid email address.',
-  }).transform((email) => email.toLowerCase()),
+  email: z
+    .string()
+    .email({
+      message: '❌ Please enter a valid email address.',
+    })
+    .transform((email) => email.toLowerCase()),
   password: z.string().min(6, {
     message: '❌ Password is required.',
   }),

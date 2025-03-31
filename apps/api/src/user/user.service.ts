@@ -5,15 +5,20 @@ import { v4 as uuidv4 } from 'uuid';
 import { hash } from 'argon2';
 import { CreateUserInput } from 'src/user/dto/creat-user.dto';
 import { verify } from 'argon2';
+import { TeamService } from 'src/team/team.service';
 
 @Injectable()
 export class UserService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private teamService: TeamService,
+  ) {}
 
   async createUser(createUserInput: CreateUserInput) {
     const { password, email, name } = createUserInput;
     const hashedPassword = await hash(password);
-    return await this.prisma.user.create({
+
+    const user = await this.prisma.user.create({
       data: {
         id: uuidv4(),
         name,
@@ -21,10 +26,16 @@ export class UserService {
         password: hashedPassword,
       },
     });
+
+    // Create 'My workspace' team for the user
+    await this.teamService.createTeam('My workspace', user.id);
+
+    return user;
   }
 
   async getUsers() {
     const users = await this.prisma.user.findMany();
+
     return users.map((user) => ({
       ...user,
       taskAssignment: [],
@@ -70,11 +81,10 @@ export class UserService {
     }
 
     const hashedPassword = await hash(newPassword);
+
     return await this.prisma.user.update({
       where: { id: userId },
       data: { password: hashedPassword },
     });
   }
-
- 
 }

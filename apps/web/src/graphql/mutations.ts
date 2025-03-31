@@ -47,10 +47,6 @@ export const CREATE_PROJECT = gql`
   mutation CreateProject($createProjectInput: CreateProjectInput!) {
     createProject(createProjectInput: $createProjectInput) {
       id
-      name
-      description
-      startDate
-      endDate
     }
   }
 `;

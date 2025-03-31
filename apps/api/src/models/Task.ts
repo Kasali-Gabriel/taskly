@@ -1,6 +1,4 @@
-
 import { Field, ObjectType } from '@nestjs/graphql';
-import { TaskAssignment } from './TaskAssignment';
 import { Attachment } from './Attachment';
 import { Comment } from './Comment';
 import { User } from './User';
@@ -21,7 +19,7 @@ export class Task {
   startDate?: Date;
 
   @Field({ nullable: true })
-  dueDate?: Date;
+  dueDate: Date;
 
   @Field({ nullable: true })
   status?: string;
@@ -29,11 +27,8 @@ export class Task {
   @Field({ nullable: true })
   priority?: string;
 
-  @Field({ nullable: true })
-  tags?: string;
-
-  @Field({ nullable: true })
-  points?: number;
+  @Field(() => [String], { nullable: true })
+  tags?: string[];
 
   @Field()
   authorId: string;
@@ -41,11 +36,8 @@ export class Task {
   @Field({ nullable: true })
   assigneeId?: string;
 
-  @Field()
-  projectId: string;
-
-  @Field(() => [TaskAssignment])
-  taskAssignments: TaskAssignment[];
+  @Field({ nullable: true })
+  projectId?: string;
 
   @Field(() => [Attachment])
   attachments: Attachment[];

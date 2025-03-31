@@ -9,16 +9,6 @@ import { TaskService } from './task.service';
 export class TaskResolver {
   constructor(private readonly taskService: TaskService) {}
 
-  @Query(() => [Task], { name: 'tasks' })
-  getTasks(@Args('projectId') projectId: string) {
-    return this.taskService.findTaskByProjectId(projectId);
-  }
-
-  @Query(() => [Task], { name: 'tasksByUser' })
-  getTasksByUser(@Args('userId') userId: string) {
-    return this.taskService.findTaskByUserId(userId);
-  }
-
   @Mutation(() => Task)
   createTask(@Args('createTaskInput') createTaskInput: CreateTaskInput) {
     return this.taskService.createTask(createTaskInput);
@@ -32,5 +22,10 @@ export class TaskResolver {
       updateTaskStatusInput.taskId,
       updateTaskStatusInput.status,
     );
+  }
+
+  @Query(() => [Task], { name: 'tasksByUser' })
+  getTasksForUser(@Args('userId') userId: string) {
+    return this.taskService.getTasksForUser(userId);
   }
 }

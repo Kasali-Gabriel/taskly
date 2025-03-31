@@ -34,7 +34,9 @@ input CreateProjectInput {
   description: String
   endDate: DateTime!
   name: String!
+  projectOwnerId: String!
   startDate: DateTime!
+  teamId: String!
 }
 
 input CreateTaskInput {
@@ -42,12 +44,11 @@ input CreateTaskInput {
   authorId: String!
   description: String
   dueDate: DateTime!
-  points: Float
   priority: String
-  projectId: String!
+  projectId: String
   startDate: DateTime
   status: String
-  tags: String
+  tags: [String!]
   title: String!
 }
 
@@ -69,38 +70,52 @@ input LoginInput {
 }
 
 type Mutation {
+  addUserToProject(projectId: String!, userId: String!): ProjectMember!
+  addUserToTeam(teamId: String!, userId: String!): TeamUser!
   changeUserPassword(updatePasswordInput: UpdatePasswordInput!): User!
   createProject(createProjectInput: CreateProjectInput!): Project!
   createTask(createTaskInput: CreateTaskInput!): Task!
+  createTeam(name: String!, teamOwnerId: String!): Team!
   createUser(createUserInput: CreateUserInput!): User!
+  deleteProject(projectId: String!): Project!
+  deleteTeam(teamId: String!): Team!
+  removeUserFromTeam(teamId: String!, userId: String!): Boolean!
   signOut(userId: String!): Boolean!
+  updateProject(projectId: String!, updateProjectInput: UpdateProjectInput!): Project!
   updateTaskStatus(updateTaskStatusInput: UpdateTaskStatusInput!): Task!
   userLogin(loginInput: LoginInput!): AuthPayload!
 }
 
 type Project {
+  createdOn: DateTime!
   description: String
-  endDate: DateTime
+  endDate: DateTime!
   id: String!
+  modifiedOn: DateTime!
   name: String!
-  projectTeams: [ProjectTeam!]!
-  startDate: DateTime
+  projectMembers: [ProjectMember!]!
+  projectOwner: User!
+  startDate: DateTime!
   tasks: [Task!]!
+  team: Team!
 }
 
-type ProjectTeam {
-  id: String!
+type ProjectMember {
   project: Project!
   projectId: String!
-  team: Team!
-  teamId: String!
+  user: User!
+  userId: String!
 }
 
 type Query {
-  getProjects: [Project!]!
-  getTeams: [Team!]!
+  getMembersOfProject(projectId: String!): [ProjectMember!]!
+  getMembersOfTeam(teamId: String!): [TeamUser!]!
+  getProjectById(projectId: String!): Project!
+  getProjectsForTeam(teamId: String!): [Project!]!
+  getProjectsForUser(userId: String!): [Project!]!
+  getTeamById(teamId: String!): Team!
+  getTeamsForUser(userId: String!): [Team!]!
   getUsers: [User!]!
-  tasks(projectId: String!): [Task!]!
   tasksByUser(userId: String!): [Task!]!
 }
 
@@ -114,32 +129,28 @@ type Task {
   description: String
   dueDate: DateTime
   id: String!
-  points: Float
   priority: String
   project: Project!
-  projectId: String!
+  projectId: String
   startDate: DateTime
   status: String
-  tags: String
-  taskAssignments: [TaskAssignment!]!
+  tags: [String!]
   title: String!
-}
-
-type TaskAssignment {
-  id: String!
-  task: Task!
-  taskId: String!
-  user: User!
-  userId: String!
 }
 
 type Team {
   id: String!
-  members: [User!]!
+  members: [TeamUser!]
   name: String!
-  productOwnerUserId: String
-  projectManagerUserId: String
-  projectTeams: [ProjectTeam!]!
+  project: [Project!]
+  teamOwnerId: String!
+}
+
+type TeamUser {
+  team: Team!
+  teamId: String!
+  user: User!
+  userId: String!
 }
 
 input UpdatePasswordInput {
@@ -147,6 +158,14 @@ input UpdatePasswordInput {
   newPassword: String!
   oldPassword: String!
   userId: String!
+}
+
+input UpdateProjectInput {
+  description: String
+  endDate: DateTime!
+  name: String!
+  startDate: DateTime!
+  teamId: String
 }
 
 input UpdateTaskStatusInput {
@@ -163,7 +182,6 @@ type User {
   id: String!
   name: String!
   profilePicture: String
-  taskAssignment: [TaskAssignment!]!
-  team: Team
-  teamId: String
+  projectMembers: ProjectMember
+  teams: [Team!]!
 }
