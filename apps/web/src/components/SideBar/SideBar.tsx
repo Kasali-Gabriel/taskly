@@ -41,7 +41,7 @@ const SideBar = () => {
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
               transition={{ duration: 0.3, ease: 'easeInOut' }}
-              className="bg-light2 dark:bg-dark2 absolute inset-y-2 left-2 z-40 flex w-64 flex-col rounded-2xl border-2 shadow-lg dark:border-stone-700"
+              className="bg-light dark:bg-dark2 absolute inset-y-2 left-2 z-40 flex w-64 flex-col rounded-2xl border-2 shadow-lg dark:border-stone-700"
             >
               <button
                 className="absolute right-[-13px] top-[20px] z-50 flex items-center justify-center rounded-full bg-stone-600 p-0.5 text-white hover:bg-stone-700 focus:outline-none md:top-[32px] md:scale-125 xl:top-[20px] xl:scale-100"
@@ -58,7 +58,7 @@ const SideBar = () => {
                   width={200}
                   priority
                   height={75}
-                  className="-ml-2  scale-75 object-cover sm:scale-[0.85] xl:-ml-0 xl:scale-100"
+                  className="-ml-2 scale-75 object-cover sm:scale-[0.85] xl:-ml-0 xl:scale-100"
                 />
               </div>
 

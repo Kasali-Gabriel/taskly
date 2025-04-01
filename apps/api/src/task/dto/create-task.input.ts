@@ -28,9 +28,9 @@ export class CreateTaskInput {
   @IsString()
   priority?: string;
 
-  @Field(() => [String], { nullable: true }) 
+  @Field(() => [String], { nullable: true })
   @IsArray()
-  @IsString({ each: true }) 
+  @IsString({ each: true })
   tags?: string[];
 
   @Field()

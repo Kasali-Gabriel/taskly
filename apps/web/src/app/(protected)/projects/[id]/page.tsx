@@ -109,7 +109,7 @@ const Page = ({ params }: Props) => {
         </TabsContent>
 
         <TabsContent value="Board">
-          <BoardView tasks={tasks} />
+          <BoardView tasks={tasks} project={project} />
         </TabsContent>
 
         <TabsContent value="Calendar">

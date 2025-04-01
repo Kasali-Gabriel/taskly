@@ -60,9 +60,11 @@ export const NewTaskButton = ({ children }: { children: React.ReactNode }) => (
 export const NewTaskForm = ({
   project,
   setOpen,
+  status,
 }: {
   project?: Project;
   setOpen: (open: boolean) => void;
+  status?: string;
 }) => {
   const { user } = useContext(UserContext);
   const userId = user?.id;
@@ -81,7 +83,7 @@ export const NewTaskForm = ({
       description: '',
       startDate: undefined,
       dueDate: undefined,
-      status: '',
+      status: status || '',
       priority: '',
       tags: [],
       authorId: userId,
@@ -109,8 +111,9 @@ export const NewTaskForm = ({
         createTaskInput: {
           ...values,
           authorId: userId,
-          assigneeId: values.assigneeId || (project ? undefined : userId),
-          projectId: project ? project.id : values.projectId,
+          status: values.status || status || Status.ToDo,
+          assigneeId: values.assigneeId ?? (project ? undefined : userId),
+          projectId: project?.id ?? values.projectId,
         },
       },
     });
@@ -205,29 +208,31 @@ export const NewTaskForm = ({
             className={`flex w-full ${!project ? 'flex-col space-y-4' : 'flex-row items-center space-x-2 sm:space-x-4'}`}
           >
             <div className="flex w-full space-x-2 sm:space-x-4">
-              <FormField
-                control={form.control}
-                name="status"
-                render={({ field }) => (
-                  <FormItem>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Status" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {statusOptions.map((option) => (
-                          <SelectItem key={option.key} value={option.key}>
-                            {option.label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </FormItem>
-                )}
-              />
+              {!status && (
+                <FormField
+                  control={form.control}
+                  name="status"
+                  render={({ field }) => (
+                    <FormItem>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Status" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {statusOptions.map((option) => (
+                            <SelectItem key={option.key} value={option.key}>
+                              {option.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </FormItem>
+                  )}
+                />
+              )}
 
               <FormField
                 control={form.control}

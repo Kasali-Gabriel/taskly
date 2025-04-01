@@ -21,7 +21,7 @@ const NavbarHome = ({ isSideBarVisible }: { isSideBarVisible: boolean }) => {
         animate={{ y: 0 }}
         exit={{ y: '-100%' }}
         transition={{ duration: 0.2, ease: 'easeInOut' }}
-        className="dark:bg-dark absolute left-0 right-0 top-0 z-20 flex h-[4rem] items-center justify-between border-b border-stone-300 bg-white px-2 py-2 shadow-md dark:border-stone-600 dark:shadow-lg"
+        className="dark:bg-dark2 bg-light absolute left-0 right-0 top-0 z-20 flex h-[4rem] items-center justify-between border-b border-stone-300 px-2 py-2 dark:border-stone-600 dark:shadow-lg"
       >
         <motion.div
           initial={{ x: 0 }}

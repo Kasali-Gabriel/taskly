@@ -1,4 +1,3 @@
-import { UseFormReturn } from 'react-hook-form';
 export interface Project {
   id: string;
   name: string;
@@ -94,8 +93,7 @@ export interface Attachment {
 export interface TaskColumnProps {
   status: Status;
   tasks: Task[];
-  moveTask: (taskId: string, newStatus: Status) => void;
+  project: Project;
 }
 
 export type TaskTypeItems = 'task' | 'milestone' | 'project';
-

@@ -11,7 +11,7 @@ export const DashboardWrapper = ({ children }: { children: ReactNode }) => {
   const { value: isSideBarVisible } = useSideBarStore();
 
   return (
-    <div className="text-dark dark:text-light dark:bg-dark bg-light relative flex h-screen w-screen max-w-screen-2xl overflow-hidden">
+    <div className="text-dark dark:text-light dark:bg-dark bg-light2 relative flex h-screen w-screen max-w-screen-2xl overflow-hidden">
       <Suspense>
         <SideBar />
       </Suspense>

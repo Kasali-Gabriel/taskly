@@ -17,9 +17,9 @@ export class TaskService {
     });
   }
 
-  async updateTaskStatus(taskId: string, status: string) {
+  async updateTaskStatus(id: string, status: string) {
     return await this.prisma.task.update({
-      where: { id: taskId },
+      where: { id: id },
       data: { status },
     });
   }

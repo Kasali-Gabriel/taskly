@@ -19,7 +19,7 @@ export class TaskResolver {
     @Args('updateTaskStatusInput') updateTaskStatusInput: UpdateTaskStatusInput,
   ) {
     return this.taskService.updateTaskStatus(
-      updateTaskStatusInput.taskId,
+      updateTaskStatusInput.id,
       updateTaskStatusInput.status,
     );
   }
